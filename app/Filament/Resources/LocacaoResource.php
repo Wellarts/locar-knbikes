@@ -903,7 +903,7 @@ class LocacaoResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->modalHeading('Editar locação')
                     ->after(function ($data) {
-                        if (isset($data['status']) && $data['status'] == 1 && isset($data['veiculo_id']) && isset($data['km_retorno'])) {
+                        if (isset($data['status']) && $data['status'] == 1 && isset($data['veiculo_id'])) {
                             DB::table('veiculos')
                                 ->where('id', $data['veiculo_id'])
                                 ->update([
