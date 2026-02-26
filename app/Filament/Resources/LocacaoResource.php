@@ -912,6 +912,7 @@ class LocacaoResource extends Resource
                                 ]);
                         }
                     }),
+                    
                 Tables\Actions\DeleteAction::make()
                     ->before(function ($record) {
                         if ($record->veiculo_id) {
