@@ -35,3 +35,14 @@ Route::get('/contrato/variaveis', [\App\Http\Controllers\ContratoController::cla
 Route::get('pdf/lucratividade-veiculos',[DocumentoController::class, 'veiculosLucratividade'])->name('veiculos-lucratividade.pdf');
 Route::get('pdf/fluxo-caixa',[DocumentoController::class, 'fluxoCaixa'])->name('relatorio.fluxo.caixa.pdf');
 Route::get('pdf/relatorio-custo-veiculo',[DocumentoController::class, 'relatorioCustoVeiculo'])->name('imprimirRelatorioCustoVeiculo');
+Route::post('/locacao/{locacao}/contrato/{contrato}/assinar', [Contrato::class, 'enviarParaAssinatura'])
+     ->name('assinarLocacaoContrato');
+Route::get('/locacao/{locacao}/assinafy/status', [Contrato::class, 'statusAssinatura'])
+     ->name('statusAssinaturaLocacao');
+
+
+Route::post('/webhooks/assinafy', [App\Http\Controllers\AssinafyWebhookController::class, 'handle'])
+     ->name('webhooks.assinafy')
+     ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+
+Route::get('/teste-assinafy', [App\Http\Controllers\Contrato::class, 'testarAssinafy'])->name('testeAssinafy');

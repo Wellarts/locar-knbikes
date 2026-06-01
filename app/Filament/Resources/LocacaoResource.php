@@ -50,7 +50,7 @@ use Leandrocfe\FilamentPtbrFormFields\Money;
 use Illuminate\Support\Str;
 use Saade\FilamentAutograph\Forms\Components\SignaturePad;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Log;
 
 class LocacaoResource extends Resource
 {
@@ -761,6 +761,20 @@ class LocacaoResource extends Resource
                     })
                     ->formatStateUsing(fn($state) => $state == 0 ? 'Locado' : 'Finalizada')
                     ->toggleable(),
+                Tables\Columns\BadgeColumn::make('assinafy_status')
+                    ->label('Assinatura')
+                    ->colors([
+                        'gray'    => 'pending',
+                        'warning' => 'sent',
+                        'success' => 'signed',
+                        'danger'  => 'refused',
+                    ])
+                    ->formatStateUsing(fn($state) => match ($state) {
+                        'sent'    => 'Aguardando',
+                        'signed'  => 'Assinado',
+                        'refused' => 'Recusado',
+                        default   => '—',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y H:i')
                     ->sortable()
@@ -881,10 +895,88 @@ class LocacaoResource extends Resource
                     ->modalHeading('Confirmar exportação?'),
             ])
             ->actions([
-                // Tables\Actions\Action::make('Imprimir')
-                //     ->url(fn(Locacao $record): string => route('imprimirLocacao', $record))
-                //     ->label('Contrato 1')
-                //     ->openUrlInNewTab(),
+                Tables\Actions\Action::make('EnviarAssinatura')
+                    ->label('Enviar p/ Assinatura')
+                    ->icon('heroicon-o-paper-airplane')
+                    ->color('success')
+                    //  ->visible(fn (?Locacao $record) => $record !== null && $record->Cliente?->email !== null)
+                    ->form([
+                        Forms\Components\Select::make('contrato_id')
+                            ->label('Modelo de Documento')
+                            ->options(fn() => \App\Models\Contrato::orderBy('titulo')->pluck('titulo', 'id'))
+                            ->required(),
+
+                        Forms\Components\TextInput::make('email_cliente')
+                            ->label('E-mail do Cliente')
+                            ->email()
+                            ->default(fn(Locacao $record) => $record->Cliente?->email)
+                            ->required(),
+
+                        Forms\Components\Repeater::make('signatarios_extras')
+                            ->label('Signatários Adicionais (opcional)')
+                            ->schema([
+                                Forms\Components\TextInput::make('name')->label('Nome')->required(),
+                                Forms\Components\TextInput::make('email')->label('E-mail')->email()->required(),
+                            ])
+                            ->defaultItems(0)
+                            ->collapsible(),
+                    ])
+                    ->action(function (array $data, Locacao $record) {
+                        try {
+                            $assinafy = app(\App\Services\AssinafyService::class);
+
+                            // monta signatários
+                            $signatarios = [
+                                [
+                                    'name'   => $record->Cliente->nome,
+                                    'email'  => $data['email_cliente'],
+                                    'action' => 'sign',
+                                ],
+                            ];
+
+                            foreach ($data['signatarios_extras'] ?? [] as $extra) {
+                                $signatarios[] = $extra;
+                            }
+
+                            // gera PDF em memória
+                            $contrato   = \App\Models\Contrato::findOrFail($data['contrato_id']);
+                            $pdfContent = app(\App\Http\Controllers\Contrato::class)
+                                ->gerarPdfContent($record->id, $contrato->id);
+
+                            $resultado = $assinafy->enviarDocumento(
+                                pdfContent: $pdfContent,
+                                filename: "contrato_locacao_{$record->id}.pdf",
+                                signatarios: $signatarios,
+                                titulo: "Contrato de Locação #{$record->id}"
+                            );
+
+                            $record->update([
+                                'assinafy_document_id' => $resultado['id'] ?? null,
+                                'assinafy_status'      => 'sent',
+                            ]);
+
+                            Notification::make()
+                                ->title('Contrato enviado para assinatura!')
+                                ->body('O cliente receberá o link por e-mail.')
+                                ->success()
+                                ->send();
+                        } catch (\Exception $e) {
+                            Log::error('Erro ao enviar para Assinafy', [
+                                'error' => $e->getMessage(),
+                                'trace' => $e->getTraceAsString(),
+                            ]);
+
+                            Notification::make()
+                                ->title('Erro ao enviar')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Enviar Contrato para Assinatura Eletrônica')
+                    ->modalDescription('O cliente receberá um e-mail com o link para assinar digitalmente.')
+                    ->modalSubmitActionLabel('Enviar'),
                 Tables\Actions\Action::make('GerarContrato')
                     ->label('Gerar Documento')
                     ->icon('heroicon-o-document-text')
