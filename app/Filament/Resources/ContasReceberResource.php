@@ -242,6 +242,24 @@ class ContasReceberResource extends Resource
                     ->relationship('categoria', 'nome')
                     ->searchable()
                     ->preload(),
+                Tables\Filters\Filter::make('data_vencimento')
+                    ->form([
+                        Forms\Components\DatePicker::make('vencimento_de')
+                            ->label('Vencimento de:'),
+                        Forms\Components\DatePicker::make('vencimento_ate')
+                            ->label('Vencimento até:'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when(
+                                $data['vencimento_de'],
+                                fn($query) => $query->whereDate('data_vencimento', '>=', $data['vencimento_de'])
+                            )
+                            ->when(
+                                $data['vencimento_ate'],
+                                fn($query) => $query->whereDate('data_vencimento', '<=', $data['vencimento_ate'])
+                            );
+                    })
             ])
             ->headerActions([
                 Tables\Actions\Action::make('relatorio')
