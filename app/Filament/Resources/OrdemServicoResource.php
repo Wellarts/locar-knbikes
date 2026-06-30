@@ -115,41 +115,46 @@ class OrdemServicoResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cliente.nome')
                     ->searchable()
-                    ->label('Cliente (Contrato)'),
-                Tables\Columns\TextColumn::make('fornecedor.nome')
-                    ->searchable()
-                    ->label('Fornecedor'),
-                Tables\Columns\TextColumn::make('data_emissao')
-                    ->date('d/m/Y')
-                    ->alignCenter()
-                    ->label('Data de Emissão'),
+                    ->label('Cliente'),
+                // Tables\Columns\TextColumn::make('fornecedor.nome')
+                //     ->searchable()
+                //     ->label('Fornecedor'),
+                // Tables\Columns\TextColumn::make('data_emissao')
+                //     ->date('d/m/Y')
+                //     ->alignCenter()
+                //     ->label('Data de Emissão'),
                 Tables\Columns\TextColumn::make('veiculo.modelo')
                     ->searchable()
                     ->label('Veículo'),
-                Tables\Columns\TextColumn::make('veiculo.placa')
-                    ->searchable()
-                    ->label('Placa'),
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
-                    ->alignCenter()
-                    ->formatStateUsing(fn($state) => match ($state) {
-                        0 => 'Pendente',
-                        1 => 'Concluído',
-                    })
-                    ->badge()
-                    ->color(fn($state) => match ($state) {
-                        0 => 'danger',
-                        1 => 'success',
-                    })
-                    ->icon(fn($state) => match ($state) {
-                        0 => 'heroicon-o-clock',
-                        1 => 'heroicon-o-check',
-                    })
+                Tables\Columns\TextColumn::make('data_emissao')
+                   ->label('Data')
+                    ->date('d/m/Y')
                     ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('km_troca')
-                    ->alignCenter()
-                    ->label('KM de Troca'),
+                    ->toggleable(),
+                // Tables\Columns\TextColumn::make('veiculo.placa')
+                //     ->searchable()
+                //     ->label('Placa'),
+                // Tables\Columns\TextColumn::make('status')
+                //     ->label('Status')
+                //     ->alignCenter()
+                //     ->formatStateUsing(fn($state) => match ($state) {
+                //         0 => 'Pendente',
+                //         1 => 'Concluído',
+                //     })
+                //     ->badge()
+                //     ->color(fn($state) => match ($state) {
+                //         0 => 'danger',
+                //         1 => 'success',
+                //     })
+                //     ->icon(fn($state) => match ($state) {
+                //         0 => 'heroicon-o-clock',
+                //         1 => 'heroicon-o-check',
+                //     })
+                //     ->sortable()
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('km_troca')
+                //     ->alignCenter()
+                //     ->label('KM de Troca'),
                 Tables\Columns\TextColumn::make('valor_total')
                     ->label('Valor Total')
                     ->summarize(Sum::make()->money('BRL')->label('Total Geral'))
