@@ -37,6 +37,11 @@ class CustoVeiculoResource extends Resource
 
     protected static ?string $navigationGroup = 'Despesas com Veículos';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -117,7 +122,7 @@ class CustoVeiculoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('id', 'desc')           
+            ->defaultSort('id', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
@@ -134,7 +139,7 @@ class CustoVeiculoResource extends Resource
                 Tables\Columns\TextColumn::make('veiculo.placa')
                     ->label('Placa')
                     ->searchable()
-                    ->sortable(),   
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('data')
                     ->sortable()
                     ->date('d/m/Y'),
@@ -183,7 +188,7 @@ class CustoVeiculoResource extends Resource
                             );
                     })
             ])
-             ->headerActions([
+            ->headerActions([
                 ExportAction::make()
                     ->exporter(CustoVeiculoExporter::class)
                     ->formats([
@@ -192,13 +197,13 @@ class CustoVeiculoResource extends Resource
                     ->columnMapping(false)
                     ->label('Exportar')
                     ->modalHeading('Confirmar exportação?'),
-                 Tables\Actions\Action::make('relatorio')
+                Tables\Actions\Action::make('relatorio')
                     ->label('Relatório de Despesas')
                     ->icon('heroicon-o-document-text')
                     ->color('info')
                     ->modalHeading('Relatório de Despesas/Manutenções de Veículos')
                     ->form([
-                       \Filament\Forms\Components\Fieldset::make('Filtros')
+                        \Filament\Forms\Components\Fieldset::make('Filtros')
                             ->columns([
                                 'sm' => 1,
                                 'md' => 2,
@@ -220,7 +225,7 @@ class CustoVeiculoResource extends Resource
                                     ->searchable()
                                     ->options(Fornecedor::all()->pluck('nome', 'id')->toArray()),
                             ]),
-                       \Filament\Forms\Components\Fieldset::make('Datas')
+                        \Filament\Forms\Components\Fieldset::make('Datas')
                             ->columns([
                                 'sm' => 1,
                                 'md' => 2,
@@ -230,8 +235,8 @@ class CustoVeiculoResource extends Resource
                                     ->label('Data de:'),
                                 DatePicker::make('data_ate')
                                     ->label('Data até:'),
-                            ]), 
-                            \Filament\Forms\Components\Fieldset::make('Filtros')
+                            ]),
+                        \Filament\Forms\Components\Fieldset::make('Filtros')
                             ->columns([
                                 'sm' => 1,
                                 'md' => 2,

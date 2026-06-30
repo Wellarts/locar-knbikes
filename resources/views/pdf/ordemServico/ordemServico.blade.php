@@ -176,32 +176,20 @@
         <legend>Dados da Ordem de Serviço</legend>
         <table class="data-table">
             <tr>
-                <th>Cliente (Contrato):</th>
+                <th>Cliente:</th>
                 <td colspan="3" style="font-size: 12px">{{ $ordemServico->cliente->nome ?? '' }}</td>
+            </tr>
+            <tr>
                 <th>Pagamento:</th>
                 <td style="font-size: 12px">{{ $ordemServico->formaPagamento->nome ?? '' }}</td>
-            </tr>
-            <tr>
-                <th>Fornecedor:</th>
-                <td style="font-size: 12px">{{ $ordemServico->fornecedor->nome ?? '' }}</td>
-                <th>Cidade:</th>
-                <td style="font-size: 12px">{{ $ordemServico->fornecedor->Cidade->nome ?? '' }}</td>
-                <th>Estado:</th>
-                <td style="font-size: 12px">{{ $ordemServico->fornecedor->Estado->nome ?? '' }}</td>
-            </tr>
-            <tr>
                 <th>Veículo:</th>
                 <td style="font-size: 12px">{{ $ordemServico->veiculo->modelo ?? '' }}</td>
-                <th>Placa:</th>
-                <td style="font-size: 12px">{{ $ordemServico->veiculo->placa ?? '' }}</td>
-                <th>Cor:</th>
-                <td style="font-size: 12px">{{ $ordemServico->veiculo->cor ?? '' }}</td>
             </tr>
             <tr>
-                <th>Km Troca:</th>
-                <td style="font-size: 12px">{{ $ordemServico->km_troca }}</td>
-                <th>Autorizado por:</th>
-                <td colspan="2" style="font-size: 12px">{{ $ordemServico->user->name ?? '' }}</td>
+                <th>Cor:</th>
+                <td style="font-size: 12px">{{ $ordemServico->veiculo->cor ?? '' }}</td>
+                <th>Realizado por:</th>
+                <td style="font-size: 12px">{{ $ordemServico->user->name ?? '' }}</td>
             </tr>
         </table>
     </fieldset>

@@ -10,6 +10,12 @@ use Carbon\Carbon;
 
 class TotalLucratividade extends BaseWidget
 {
+    public static function canView(): bool
+    {
+        // Sua lógica para esconder/mostrar o widget
+        return false; 
+    }
+
     protected static ?string $pollingInterval = '30s';
     protected static ?int $sort = 5;
 

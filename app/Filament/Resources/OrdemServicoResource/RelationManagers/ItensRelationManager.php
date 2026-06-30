@@ -70,9 +70,9 @@ class ItensRelationManager extends RelationManager
                     ->options([
                         '1' => 'Preventiva',
                         '2' => 'Corretiva',
-                        '3' => 'Avaria',
-                        '4' => 'Multa',
-                        '5' => 'Outros'
+                        // '3' => 'Avaria',
+                        // '4' => 'Multa',
+                         '5' => 'Outros'
                     ])
                     ->required()
                     ->label('Tipo'),

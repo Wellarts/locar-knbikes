@@ -44,11 +44,12 @@ class OrdemServicoResource extends Resource
                             ->relationship('cliente', 'nome')
                             ->searchable()
                             ->required()
-                            ->label('Cliente (Contrato)'),
+                            ->label('Cliente'),
 
                         Forms\Components\Select::make('fornecedor_id')
                             ->relationship('fornecedor', 'nome')
                             ->searchable()
+                            ->default(1)
                             ->required()
                             ->label('Fornecedor'),
 
@@ -56,6 +57,7 @@ class OrdemServicoResource extends Resource
                             ->relationship('formaPagamento', 'nome')
                             ->searchable()
                             ->preload()
+                            ->default(1)
                             ->required()
                             ->label('Forma de Pagamento'),
 
@@ -63,37 +65,25 @@ class OrdemServicoResource extends Resource
                             ->required()
                             ->label('Veículo')
                             ->live(onBlur: true)
-                            ->relationship(
-                                name: 'veiculo',
-                                modifyQueryUsing: function (Builder $query, $context) {
-                                    $query->where('status', 1)->orderBy('modelo')->orderBy('placa');
-                                }
-                            )
-                            ->getOptionLabelFromRecordUsing(fn(Model $record) => "{$record->modelo} {$record->placa}")
-                            ->searchable(['modelo', 'placa'])
-                            ->afterStateUpdated(function ($state, callable $set) {
-                                $veiculo = \App\Models\Veiculo::find($state);
-                                if ($veiculo) {
-                                    $set('km_troca', $veiculo->km_atual);
-                                }
-                            }),
+                            ->relationship('veiculo', 'modelo'),   
+                            
 
                         Forms\Components\Select::make('user_id')
                             ->relationship('user', 'name')
                             ->default(fn () => auth()->user()->id)
                             ->searchable()
                             ->required()
-                            ->label('Autorizado Por'),
+                            ->label('Realizado por'),
 
                         Forms\Components\DatePicker::make('data_emissao')
                             ->required()
                             ->default(now())
                             ->label('Data de Emissão'),
 
-                        Forms\Components\TextInput::make('km_troca')                                   
-                            ->required()
-                            ->hint('Km atual inserida automaticamente')
-                            ->label('KM de Troca'),
+                        // Forms\Components\TextInput::make('km_troca')                                   
+                        //     ->required()
+                        //     ->hint('Km atual inserida automaticamente')
+                        //     ->label('KM de Troca'),
                         Forms\Components\ToggleButtons::make('status')
                             ->options([
                                 '0' => 'Pendente',

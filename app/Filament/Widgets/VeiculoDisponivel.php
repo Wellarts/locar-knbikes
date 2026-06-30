@@ -65,11 +65,17 @@ class VeiculoDisponivel extends BaseWidget
             ->defaultSort('modelo', 'asc');
     }
 
+    // public static function canView(): bool
+    // {
+    //     return Veiculo::where('status', 1)
+    //         ->where('status_locado', 0)
+    //         ->exists();
+    // }
+
     public static function canView(): bool
     {
-        return Veiculo::where('status', 1)
-            ->where('status_locado', 0)
-            ->exists();
+        // Sua lógica para esconder/mostrar o widget
+        return false; 
     }
 
     protected function getTablePollingInterval(): ?string

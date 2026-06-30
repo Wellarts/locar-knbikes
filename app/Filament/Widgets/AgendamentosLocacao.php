@@ -13,6 +13,7 @@ class AgendamentosLocacao extends BaseWidget
 {
     protected static ?int $sort = 9;
     protected static ?string $heading = 'Próximos Agendamentos';
+   
 
     protected function getTableQuery(): Builder
     {
@@ -32,35 +33,35 @@ class AgendamentosLocacao extends BaseWidget
                     ->searchable()
                     ->label('Cliente')
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('veiculo.modelo')
                     ->sortable()
                     ->searchable()
                     ->label('Veículo')
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('veiculo.placa')
                     ->searchable()
                     ->label('Placa')
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('data_saida')
                     ->badge()
                     ->label('Data Saída')
                     ->date('d/m/Y')
-                    ->color(fn ($state): string => $this->getDataSaidaColor($state))
+                    ->color(fn($state): string => $this->getDataSaidaColor($state))
                     ->sortable()
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('hora_saida')
                     ->label('Hora Saída')
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('data_retorno')
                     ->label('Data Retorno')
                     ->date('d/m/Y')
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('hora_retorno')
                     ->label('Hora Retorno')
                     ->toggleable(),

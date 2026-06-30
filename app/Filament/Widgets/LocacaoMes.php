@@ -14,6 +14,12 @@ class LocacaoMes extends ChartWidget
 
     protected static ?int $sort = 8;
 
+    public static function canView(): bool
+    {
+        // Sua lógica para esconder/mostrar o widget
+        return false; 
+    }
+
     protected function getData(): array
     {
         // Cache os dados por um período específico, se necessário

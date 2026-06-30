@@ -30,6 +30,11 @@ class VeiculosLucratividadeResource extends Resource
 
     protected static ?string $navigationGroup = 'Consultas';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     
 
     

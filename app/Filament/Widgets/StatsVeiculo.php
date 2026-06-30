@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Cache;
 
 class StatsVeiculo extends BaseWidget
 {
+    public static function canView(): bool
+    {
+        // Sua lógica para esconder/mostrar o widget
+        return false; 
+    }
+
+
     protected static ?int $sort = 1;
 
     // Chaves de cache separadas para melhor granularidade

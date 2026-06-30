@@ -46,119 +46,119 @@ class VeiculoResource extends Resource
                                 ->label('Marca')
                                 ->required()
                                 ->options(Marca::all()->pluck('nome', 'id')->toArray()),
-                            Forms\Components\TextInput::make('ano')
-                                ->numeric(),
-                            Forms\Components\TextInput::make('placa')
-                                ->maxLength(255),
+                            // Forms\Components\TextInput::make('ano')
+                            //     ->numeric(),
+                            // Forms\Components\TextInput::make('placa')
+                            //     ->maxLength(255),
                             Forms\Components\TextInput::make('cor')
                                 ->maxLength(255),
-                            Forms\Components\TextInput::make('km_atual')
-                                ->label('Km Atual')
-                                ->numeric(),
-                            Forms\Components\DatePicker::make('data_compra'),
-                            Forms\Components\TextInput::make('chassi')
-                                ->label('Nº do Chassi'),
-                            Forms\Components\TextInput::make('renavam')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('valor_diaria')
-                                ->prefix('R$')
-                                ->live(onBlur: true)
-                                ->label('Valor Diária')
-                                ->numeric(),
-                            Forms\Components\TextInput::make('valor_semana')
-                                ->prefix('R$')
-                                ->label('Valor Semanal')
-                                ->numeric(),
+                            // Forms\Components\TextInput::make('km_atual')
+                            //     ->label('Km Atual')
+                            //     ->numeric(),
+                            // Forms\Components\DatePicker::make('data_compra'),
+                        //     Forms\Components\TextInput::make('chassi')
+                        //         ->label('Nº do Chassi'),
+                        //     Forms\Components\TextInput::make('renavam')
+                        //         ->maxLength(255),
+                        //     Forms\Components\TextInput::make('valor_diaria')
+                        //         ->prefix('R$')
+                        //         ->live(onBlur: true)
+                        //         ->label('Valor Diária')
+                        //         ->numeric(),
+                        //     Forms\Components\TextInput::make('valor_semana')
+                        //         ->prefix('R$')
+                        //         ->label('Valor Semanal')
+                        //         ->numeric(),
 
-                            FileUpload::make('documentos')
-                                /* ->columnSpan([
-                                    'xl' => 2,
-                                    '2xl' => 2,
-                                ]) */
-                                ->multiple()
-                                ->downloadable()
-                                ->columnSpan([
-                                    'xl' => 2,
-                                    '2xl' => 2,
-                                ])
-                                ->label('Documentos'),
+                        //     FileUpload::make('documentos')
+                        //         /* ->columnSpan([
+                        //             'xl' => 2,
+                        //             '2xl' => 2,
+                        //         ]) */
+                        //         ->multiple()
+                        //         ->downloadable()
+                        //         ->columnSpan([
+                        //             'xl' => 2,
+                        //             '2xl' => 2,
+                        //         ])
+                        //         ->label('Documentos'),
 
-                        ]),
+                        // ]),
                         Forms\Components\Textarea::make('obs')
                             ->autosize()
                             ->columnSpanFull()
                             ->label('Observações'),
-                        Fieldset::make('Manutenção')
-                            ->schema([
-                                Grid::make([
-                                    'xl' => 2,
-                                    '2xl' => 2,
-                                ])->schema([
+                        // Fieldset::make('Manutenção')
+                        //     ->schema([
+                        //         Grid::make([
+                        //             'xl' => 2,
+                        //             '2xl' => 2,
+                        //         ])->schema([
 
-                                    Forms\Components\TextInput::make('prox_troca_oleo')
-                                        ->label('Próxima Troca de Óleo - Km'),
-                                    Forms\Components\TextInput::make('aviso_troca_oleo')
-                                        ->label('Aviso Troca do Óleo - Km'),
-                                    Forms\Components\TextInput::make('prox_troca_filtro')
-                                        ->label('Próxima Troca do Filtro - Km'),
-                                    Forms\Components\TextInput::make('aviso_troca_filtro')
-                                        ->label('Aviso Troca do Filtro - Km'),
-                                    Forms\Components\TextInput::make('prox_troca_correia')
-                                        ->label('Próxima Troca da Correia - Km'),
-                                    Forms\Components\TextInput::make('aviso_troca_correia')
-                                        ->label('Aviso Troca da Correia - Km'),
-                                    Forms\Components\TextInput::make('prox_troca_pastilha')
-                                        ->label('Próxima Troca da Pastilha - Km'),
-                                    Forms\Components\TextInput::make('aviso_troca_pastilha')
-                                        ->label('Aviso Troca da Pastilha - Km'),
-                                    Forms\Components\ToggleButtons::make('status_alerta')
-                                        ->columnSpanFull()
-                                        ->default(0)
-                                        ->options([
-                                            '1' => 'Ativado',
-                                            '0' => 'Desativado',
+                        //             Forms\Components\TextInput::make('prox_troca_oleo')
+                        //                 ->label('Próxima Troca de Óleo - Km'),
+                        //             Forms\Components\TextInput::make('aviso_troca_oleo')
+                        //                 ->label('Aviso Troca do Óleo - Km'),
+                        //             Forms\Components\TextInput::make('prox_troca_filtro')
+                        //                 ->label('Próxima Troca do Filtro - Km'),
+                        //             Forms\Components\TextInput::make('aviso_troca_filtro')
+                        //                 ->label('Aviso Troca do Filtro - Km'),
+                        //             Forms\Components\TextInput::make('prox_troca_correia')
+                        //                 ->label('Próxima Troca da Correia - Km'),
+                        //             Forms\Components\TextInput::make('aviso_troca_correia')
+                        //                 ->label('Aviso Troca da Correia - Km'),
+                        //             Forms\Components\TextInput::make('prox_troca_pastilha')
+                        //                 ->label('Próxima Troca da Pastilha - Km'),
+                        //             Forms\Components\TextInput::make('aviso_troca_pastilha')
+                        //                 ->label('Aviso Troca da Pastilha - Km'),
+                        //             Forms\Components\ToggleButtons::make('status_alerta')
+                        //                 ->columnSpanFull()
+                        //                 ->default(0)
+                        //                 ->options([
+                        //                     '1' => 'Ativado',
+                        //                     '0' => 'Desativado',
 
-                                        ])
-                                        ->colors([
-                                            '1' => 'success',
-                                            '0' => 'danger',
-                                        ])
-                                        ->inline()
-                                        ->default(0)
-                                        ->label('Alertas de Manutenção'),
+                        //                 ])
+                        //                 ->colors([
+                        //                     '1' => 'success',
+                        //                     '0' => 'danger',
+                        //                 ])
+                        //                 ->inline()
+                        //                 ->default(0)
+                        //                 ->label('Alertas de Manutenção'),
 
 
 
                                 ]),
 
-                            ]),
-                        Forms\Components\ToggleButtons::make('status')
-                            ->options([
-                                '1' => 'Ativado',
-                                '0' => 'Desativado',
+                             ]),
+                        // Forms\Components\ToggleButtons::make('status')
+                        //     ->options([
+                        //         '1' => 'Ativado',
+                        //         '0' => 'Desativado',
 
-                            ])
-                            ->colors([
-                                '1' => 'success',
-                                '0' => 'danger',
-                            ])
-                            ->inline()
-                            ->default(1)
-                            ->label('Status do Veículo'),
-                        Forms\Components\ToggleButtons::make('status_locado')
-                            ->options([
-                                '0' => 'Disponível',
-                                '1' => 'Locado',
+                        //     ])
+                        //     ->colors([
+                        //         '1' => 'success',
+                        //         '0' => 'danger',
+                        //     ])
+                        //     ->inline()
+                        //     ->default(1)
+                        //     ->label('Status do Veículo'),
+                    //     Forms\Components\ToggleButtons::make('status_locado')
+                    //         ->options([
+                    //             '0' => 'Disponível',
+                    //             '1' => 'Locado',
 
-                            ])
-                            ->colors([
-                                '0' => 'success',
-                                '1' => 'danger',
-                            ])
-                            ->inline()
-                            ->default(0)
-                            ->label('Locação'),
-                    ])
+                    //         ])
+                    //         ->colors([
+                    //             '0' => 'success',
+                    //             '1' => 'danger',
+                    //         ])
+                    //         ->inline()
+                    //         ->default(0)
+                    //         ->label('Locação'),
+                    // ])
             ]);
     }
 
@@ -172,53 +172,53 @@ class VeiculoResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('marca.nome'),
-                Tables\Columns\TextColumn::make('ano')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('placa')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cor')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('km_atual')
-                    ->sortable()
-                    ->label('Km Atual'),
-                Tables\Columns\TextColumn::make('valor_diaria')
-                    ->label('Valor Diária')
-                    ->money('BRL'),
-                Tables\Columns\TextColumn::make('valor_semana')
-                    ->label('Valor Semanal')
-                    ->money('BRL'),
-                Tables\Columns\TextColumn::make('status')
-                    ->Label('Status')
-                    ->badge()
-                    ->alignCenter()
-                    ->color(fn(string $state): string => match ($state) {
-                        '0' => 'danger',
-                        '1' => 'success',
-                    })
-                    ->formatStateUsing(function ($state) {
-                        if ($state == 1) {
-                            return 'Ativado';
-                        }
-                        if ($state == 0) {
-                            return 'Desativdo';
-                        }
-                    }),
-                Tables\Columns\TextColumn::make('status_locado')
-                    ->Label('Status Locação')
-                    ->badge()
-                    ->alignCenter()
-                    ->color(fn(string $state): string => match ($state) {
-                        '1' => 'danger',
-                        '0' => 'success',
-                    })
-                    ->formatStateUsing(function ($state) {
-                        if ($state == 1) {
-                            return 'Locado';
-                        }
-                        if ($state == 0) {
-                            return 'Disponível';
-                        }
-                    }),
+                // Tables\Columns\TextColumn::make('ano')
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('placa')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('cor')
+                //     ->sortable(),
+                // Tables\Columns\TextColumn::make('km_atual')
+                //     ->sortable()
+                //     ->label('Km Atual'),
+                // Tables\Columns\TextColumn::make('valor_diaria')
+                //     ->label('Valor Diária')
+                //     ->money('BRL'),
+                // Tables\Columns\TextColumn::make('valor_semana')
+                //     ->label('Valor Semanal')
+                //     ->money('BRL'),
+                // Tables\Columns\TextColumn::make('status')
+                //     ->Label('Status')
+                //     ->badge()
+                //     ->alignCenter()
+                //     ->color(fn(string $state): string => match ($state) {
+                //         '0' => 'danger',
+                //         '1' => 'success',
+                //     })
+                //     ->formatStateUsing(function ($state) {
+                //         if ($state == 1) {
+                //             return 'Ativado';
+                //         }
+                //         if ($state == 0) {
+                //             return 'Desativdo';
+                //         }
+                //     }),
+                // Tables\Columns\TextColumn::make('status_locado')
+                //     ->Label('Status Locação')
+                //     ->badge()
+                //     ->alignCenter()
+                //     ->color(fn(string $state): string => match ($state) {
+                //         '1' => 'danger',
+                //         '0' => 'success',
+                //     })
+                //     ->formatStateUsing(function ($state) {
+                //         if ($state == 1) {
+                //             return 'Locado';
+                //         }
+                //         if ($state == 0) {
+                //             return 'Disponível';
+                //         }
+                //     }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -20,9 +20,16 @@ use Illuminate\Database\Eloquent\Model;
 use Leandrocfe\FilamentPtbrFormFields\Money;
 use Illuminate\Support\Facades\Cache;
 
+
+
 class LucroVeiculo extends Page implements HasForms
 {
     use InteractsWithForms;
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static string $view = 'filament.pages.lucro-veiculo';

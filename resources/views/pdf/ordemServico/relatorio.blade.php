@@ -307,9 +307,7 @@
                                     <tr>
                                         <td colspan="7" class="totals-row">
                                             <strong>Total Preventiva:</strong> R$ {{ number_format($totalPreventiva, 2, ',', '.') }} &nbsp; | &nbsp;
-                                            <strong>Total Corretiva:</strong> R$ {{ number_format($totalCorretiva, 2, ',', '.') }} &nbsp; | &nbsp;
-                                            <strong>Total Avaria:</strong> R$ {{ number_format($totalAvaria, 2, ',', '.') }} &nbsp; | &nbsp;
-                                            <strong>Total Multa:</strong> R$ {{ number_format($totalMulta, 2, ',', '.') }} &nbsp; | &nbsp;
+                                            <strong>Total Corretiva:</strong> R$ {{ number_format($totalCorretiva, 2, ',', '.') }} &nbsp; | &nbsp;                                           
                                             <strong>Total Outros:</strong> R$ {{ number_format($totalOutros, 2, ',', '.') }}
                                         </td>
                                     </tr>
@@ -430,14 +428,7 @@
             <td class="summary-header">Total Geral Corretiva:</td>
             <td class="summary-value">R$ {{ number_format($totalCorretivaGeral, 2, ',', '.') }}</td>
         </tr>
-        <tr>
-            <td class="summary-header">Total Geral Avaria:</td>
-            <td class="summary-value">R$ {{ number_format($totalAvariaGeral, 2, ',', '.') }}</td>
-        </tr>
-        <tr>
-            <td class="summary-header">Total Geral Multa:</td>
-            <td class="summary-value">R$ {{ number_format($totalMultaGeral, 2, ',', '.') }}</td>
-        </tr>
+        
         <tr>
             <td class="summary-header">Total Geral Outros:</td>
             <td class="summary-value">R$ {{ number_format($totalOutrosGeral, 2, ',', '.') }}</td>
